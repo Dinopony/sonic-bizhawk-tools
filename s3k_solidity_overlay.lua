@@ -25,7 +25,7 @@ TILES_PER_COLUMN_IN_CHUNK = 8
 ----------------------------------------------------------------------------
 
 CAMERA_X_ADDR = 0xEE78
-CAMERA_Y_ADDR = 0xF616
+CAMERA_Y_ADDR = 0xEE7C
 TIMER_ADDR = 0xFE22
 
 ----------------------------------------------------------------------------
@@ -111,6 +111,7 @@ function draw_solidity_overlay_for_tile(tile_screen_x, tile_screen_y, color, ang
     -- TODO: Use angle value to draw a precise polygon for slopes
     -- TODO: handle x_flip & y_flip
 end
+
 ----------------------------------------------------------------------------
 
 function draw_solidity()
@@ -154,4 +155,20 @@ end
 
 ----------------------------------------------------------------------------
 
+function startup()
+    console.log("Solidity display : ON")
+end
+
+function shutdown()
+    gui.clearGraphics()
+    console.log("Solidity display : OFF")
+end
+
 event.onframestart(draw_solidity)
+
+event.onexit(shutdown)
+startup()
+while true do
+    emu.frameadvance()
+end
+
